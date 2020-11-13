@@ -3,7 +3,7 @@ using Microsoft.AnalysisServices.Tabular;
  
 class Program {
 
-    const string connectString = "localhost:50468"; // update for port number on your machine
+    const string connectString = "localhost:50000"; // update for port number on your machine
 
     static void Main(string[] args) {
         
