@@ -2,6 +2,7 @@ using System;
 using Microsoft.AnalysisServices.Tabular;
  
 class Program {
+
     const string connectString = "localhost:50000"; // update for port number on your machine
   
     static void Main(string[] args) {
@@ -12,11 +13,12 @@ class Program {
 
         foreach (Table table in model.Tables) {
             foreach (Column column in table.Columns) {
+                // determine if column is visible and numeric
                 if ((column.IsHidden == false) &
                     (column.DataType == DataType.Int64 ||
                      column.DataType == DataType.Decimal ||
                      column.DataType == DataType.Double)) {
-                         
+
                     // add automeasure for this column new measure                      
                     string measureName = $"Sum of {column.Name} ({table.Name})";
                     string expression = $"SUM('{table.Name}'[{column.Name}])";
@@ -40,9 +42,8 @@ class Program {
                 }
             }
         }
+        // save changes back to model in Power BI Desktop
         model.SaveChanges();
     }
   
 }
-
-
