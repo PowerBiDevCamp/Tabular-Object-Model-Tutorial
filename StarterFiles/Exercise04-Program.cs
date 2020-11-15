@@ -362,7 +362,7 @@ class Program {
             string[] tokens = Regex.Split(row, "\\s+");
             if (tokens.Length > 4 && (tokens[1].Equals("UDP") || tokens[1].Equals("TCP"))) {
                 string localAddress = Regex.Replace(tokens[2], @"\[(.*?)\]", "1.1.1.1");
-                string pname = tokens[1] == "UDP" ? LookupProcess(Convert.ToInt16(tokens[4])) : LookupProcess(Convert.ToInt16(tokens[5]));
+                string pname = tokens[1] == "UDP" ? LookupProcess(Convert.ToInt32(tokens[4])) : LookupProcess(Convert.ToInt32(tokens[5]));
                 string pnumber = "localhost:" + localAddress.Split(':')[1];
                 if (pname == "msmdsrv" && !myPorts.Contains(pnumber)) {
                     myPorts.Add(pnumber);
