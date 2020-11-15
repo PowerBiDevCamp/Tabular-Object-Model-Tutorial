@@ -1,51 +1,68 @@
 ﻿using System;
-using Microsoft.AnalysisServices.Tabular;
-
+using Microsoft.AnalysisServices.AdomdClient;
+ 
 class Program {
-
-    const string connectString = "localhost:50000"; // update for port number on your machine
-
     static void Main(string[] args) {
 
-        Server server = new Server();
-        server.Connect(connectString);
-        Model model = server.Databases[0].Model;
+           const string connectString = "localhost:50000"; // update for port number on your machine
 
-        foreach (Table table in model.Tables) {
-            foreach (Column column in table.Columns) {
-                
-                // determine if column is visible and numeric
-                if ((column.IsHidden == false) &
-                    (column.DataType == DataType.Int64 ||
-                     column.DataType == DataType.Decimal ||
-                     column.DataType == DataType.Double)) {
+        /*******************************************************
+            Define Connection
+        *******************************************************/
 
-                    // add automeasure for this column new measure                      
-                    string measureName = $"Sum of {column.Name} ({table.Name})";
-                    string expression = $"SUM('{table.Name}'[{column.Name}])";
-                    string displayFolder = "Auto Measures";
-
-                    Measure measure = new Measure() {
-                        Name = measureName,
-                        Expression = expression,
-                        DisplayFolder = displayFolder
-                    };
-
-                    measure.Annotations.Add(new Annotation() { Value = "This is an Auto Measure" });
-
-                    if (!table.Measures.ContainsName(measureName)) {
-                        table.Measures.Add(measure);
-                    }
-                    else {
-                        table.Measures[measureName].Expression = expression;
-                        table.Measures[measureName].DisplayFolder = displayFolder;
-                    }
-                }
-            }
-        }
+        AdomdConnection adomdConnection = new AdomdConnection("Data Source=localhost:64505");
         
-        // save changes back to model in Power BI Desktop
-        model.SaveChanges();
-    }
+        /*******************************************************
+            Define Query (as a Command)
+            - the AdomdCommant uses the above connection
+            - subsitute this for your own query
+        *******************************************************/
 
+        String query = @"
+        EVALUATE
+            SUMMARIZECOLUMNS(
+                //GROUP BY 
+                Customers[State] ,
+                    
+                //FILTER BY
+                TREATAS( {""Western Region""} , 'Customers'[Sales Region] ) ,
+                    
+                // MEASURES
+                ""Sales Revenue"" , SUM(Sales[SalesAmount]) ,
+                ""Units Sold"" , SUM(Sales[Quantity])
+            )
+        ";
+
+        AdomdCommand adomdCommand = new AdomdCommand(query,adomdConnection);
+
+        /*******************************************************
+            Run the Query
+            - Open the connection
+            - Issue the query
+            - Iterate through each row of the reader
+            - Iterate through each column of the current row
+            - Close the connection
+        *******************************************************/
+
+        adomdConnection.Open();
+            
+        AdomdDataReader reader = adomdCommand.ExecuteReader();
+
+        // Create a loop for every row in the resultset
+        while(reader.Read())
+        {
+            String rowResults = "";
+            // Create a loop for every column in the current row
+            for (
+                int columnNumber = 0;
+                columnNumber<reader.FieldCount;
+                columnNumber++
+                )
+            {
+            rowResults += $"\t{reader.GetValue(columnNumber)}";
+            }
+            Console.WriteLine(rowResults);
+        }
+        adomdConnection.Close();
+    }
 }

@@ -27,7 +27,8 @@ class Program {
                     Measure measure = new Measure() {
                         Name = measureName,
                         Expression = expression,
-                        DisplayFolder = displayFolder
+                        DisplayFolder = displayFolder,
+                        Description = displayFolder
                     };
 
                     measure.Annotations.Add(new Annotation() { Value = "This is an Auto Measure" });
