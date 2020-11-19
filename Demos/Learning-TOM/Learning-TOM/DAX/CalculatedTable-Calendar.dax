@@ -1,0 +1,4 @@
+﻿Var CalenderStart = Date(Year(Min(Sales[InvoiceDate])) , 1, 1)  
+Var CalendarEnd = Date(Year(MAX(Sales[InvoiceDate])), 12, 31)
+Return
+  CALENDAR(CalenderStart, CalendarEnd)

@@ -1,0 +1,9 @@
+﻿SWITCH (
+    TRUE(),
+    [Age] >= 65, "65 and over",
+    [Age] >= 50, "50 to 64",
+    [Age] >= 40, "40 to 49",
+    [Age] >= 30, "30 to 39",
+    [Age] >= 18, "18 to 29",
+    [Age] < 18, "Under 18"
+)

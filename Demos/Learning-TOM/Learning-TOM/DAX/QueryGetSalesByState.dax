@@ -1,0 +1,6 @@
+﻿EVALUATE
+  SUMMARIZECOLUMNS(
+    Customers[State],
+    "Sales Revenue", SUM(Sales[SalesAmount]),
+    "Units Sold", SUM(Sales[Quantity])
+)

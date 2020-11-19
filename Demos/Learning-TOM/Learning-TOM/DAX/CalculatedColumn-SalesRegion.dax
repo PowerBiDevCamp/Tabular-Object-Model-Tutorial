@@ -1,0 +1,9 @@
+﻿SWITCH( 
+    TRUE(), 
+    [State] in {"AK", "AZ", "CA", "CO", "HI", "MT", "NM", "NV", "OR", "UT", "WA"},
+    "Western Region",
+    [State] in {"AL", "AR", "IA", "ID", "IL", "IN", "KS", "KY", "LA", "MI", "MN", "MO", "MS", "ND", "NE", "OH", "OK", "SD", "TN", "TX", "WI", "WV", "WY"},
+    "Central Region",
+    [State] in {"CT", "DE", "FL", "GA", "MA", "MD", "ME", "NC", "NH", "NJ", "NY", "PA", "RI", "SC", "VA", "VT"},
+    "Eastern Region"
+)
