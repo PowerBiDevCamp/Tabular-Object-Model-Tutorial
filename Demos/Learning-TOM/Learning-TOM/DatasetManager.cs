@@ -92,6 +92,9 @@ namespace Learning_TOM {
       sourceDatabase.Model.CopyTo(targetDatabase.Model);
       targetDatabase.Model.SaveChanges();
 
+      targetDatabase.Model.RequestRefresh(RefreshType.Full);
+      targetDatabase.Model.SaveChanges();
+
       return targetDatabase;
     }
 
@@ -294,6 +297,10 @@ namespace Learning_TOM {
           new CalculatedColumn() { Name = "DayOfWeekSort", DataType = DataType.Int64, Expression = "WEEKDAY([Date], 2)", IsHidden = true }
         }
       };
+
+      calendarTable.Columns["Month"].SortByColumn = calendarTable.Columns["MonthSort"];
+      calendarTable.Columns["Month in Year"].SortByColumn = calendarTable.Columns["MonthInYearSort"];
+      calendarTable.Columns["Day of Week"].SortByColumn = calendarTable.Columns["DayOfWeekSort"];
 
       calendarTable.Hierarchies.Add(
           new Hierarchy() {
