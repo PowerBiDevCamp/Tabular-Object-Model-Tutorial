@@ -52,12 +52,9 @@ namespace Learning_TOM {
     }
 
     public static void RefreshDatabaseModel(string Name) {
-
       Database database = server.Databases.GetByName(Name);
-
       database.Model.RequestRefresh(RefreshType.DataOnly);
       database.Model.SaveChanges();
-
     }
 
     public static Database CreateDatabase(string DatabaseName) {
@@ -76,7 +73,6 @@ namespace Learning_TOM {
       };
 
       server.Databases.Add(database);
-
       database.Update(Microsoft.AnalysisServices.UpdateOptions.ExpandFull);
 
       return database;
@@ -87,7 +83,6 @@ namespace Learning_TOM {
       Database sourceDatabase = server.Databases.GetByName(sourceDatabaseName);
 
       string newDatabaseName = server.Databases.GetNewName(DatabaseName);
-
       Database targetDatabase = CreateDatabase(newDatabaseName);
       sourceDatabase.Model.CopyTo(targetDatabase.Model);
       targetDatabase.Model.SaveChanges();
@@ -151,7 +146,6 @@ namespace Learning_TOM {
 
       model.RequestRefresh(RefreshType.Full);
       model.SaveChanges();
-
     }
 
     private static Table CreateCustomersTable() {
@@ -187,7 +181,6 @@ namespace Learning_TOM {
 
       customersTable.Columns["Sales Region"].SortByColumn = customersTable.Columns["SalesRegionSort"];
 
-
       customersTable.Hierarchies.Add(
         new Hierarchy() {
           Name = "Customer Geography",
@@ -200,7 +193,6 @@ namespace Learning_TOM {
         });
 
       return customersTable;
-
     }
 
     private static Table CreateProductsTable() {
@@ -238,7 +230,6 @@ namespace Learning_TOM {
         });
 
       return productsTable;
-
     }
 
     private static Table CreateSalesTable() {
@@ -313,7 +304,6 @@ namespace Learning_TOM {
           });
 
       return calendarTable;
-
     }
 
   }
