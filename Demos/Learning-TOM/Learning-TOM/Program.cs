@@ -13,9 +13,9 @@ namespace Learning_TOM {
             Database database = DatasetManager.CreateDatabase(DatabaseName);
             DatasetManager.CreateWingtipSalesModel(database);
 
-            string newDatabaseName = "newDatabaseName";
-            DatasetManager.CopyDatabase(DatabaseName, newDatabaseName);
-            database = DatasetManager.CreateDatabase(newDatabaseName);
+            //string newDatabaseName = "My Cloned DS Copy";
+            //DatasetManager.CopyDatabase(DatabaseName, newDatabaseName);
+            //database = DatasetManager.CreateDatabase(newDatabaseName);
 
         }
 
