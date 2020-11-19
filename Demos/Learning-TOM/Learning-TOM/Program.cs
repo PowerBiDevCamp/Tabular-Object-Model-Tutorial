@@ -7,17 +7,17 @@ namespace Learning_TOM {
 
     static void Main() {
 
-            string DatabaseName = "Wingtip Sales MOdel";
+      string DatabaseName = "Wingtip Sales MOdel";
 
-            DatasetManager.ConnectToPowerBIAsUser();
-            Database database = DatasetManager.CreateDatabase(DatabaseName);
-            DatasetManager.CreateWingtipSalesModel(database);
+      DatasetManager.ConnectToPowerBIAsUser();
+      Database database = DatasetManager.CreateDatabase(DatabaseName);
+      DatasetManager.CreateWingtipSalesModel(database);
 
-            //string newDatabaseName = "My Cloned DS Copy";
-            //DatasetManager.CopyDatabase(DatabaseName, newDatabaseName);
-            //database = DatasetManager.CreateDatabase(newDatabaseName);
-
-        }
+      //string newDatabaseName = "My Cloned DS Copy";
+      //DatasetManager.CopyDatabase(DatabaseName, newDatabaseName);
+      //database = DatasetManager.CreateDatabase(newDatabaseName);
 
     }
+
+  }
 }
