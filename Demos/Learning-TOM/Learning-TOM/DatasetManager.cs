@@ -97,17 +97,7 @@ namespace Learning_TOM {
     public static void CreateWingtipSalesModel(Database database) {
 
       Model model = database.Model;
-
-      var dsProvider = new ProviderDataSource() {
-        Name = "Azure SQL Server Data Source  - PBI Dev Camp",
-        Description = "A data source definition ",
-        ConnectionString = "Provider=SQLNCLI11;Data Source=devcamp.database.windows.net;Initial Catalog=WingtipSalesDB;Integrated Security=False",
-        ImpersonationMode = Microsoft.AnalysisServices.Tabular.ImpersonationMode.ImpersonateServiceAccount,
-        Account = "CptAdmin"
-      };
-
-      model.DataSources.Add(dsProvider);
-
+     
       Table tableCustomers = CreateCustomersTable();
       Table tableProducts = CreateProductsTable();
       Table tableSales = CreateSalesTable();
